@@ -16,5 +16,9 @@ jobs:
         run: npm install 
       - name: intall jest
         run: npm i -D jest
-      - name: jest test
-        run: npm run test
+      - name: mapArrToString test
+        run: npm run test mapArrToString.test.js
+      - name: square test
+        run: npm run test square.test.js
+      - name: validateValue test
+        run: npm run test validateValue.test.js
