@@ -1,12 +1,11 @@
 name: github-actions
-run-name: ${{ github.actor }} do GitHub Actions
 on:
   push:
-    branches: [master]
+    branches: [ main ]
   pull_request:
-    branches: [master]
+    branches: [ main ]
 jobs:
-  init :
+  init:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,8 +13,12 @@ jobs:
         with:
           node-version: '14'
       - name: intall modules
-        run: npm intall 
+        run: npm install 
       - name: intall jest
         run: npm i -D jest
-      - name: jest test
-        run: npm run test
+      - name: mapArrToString test
+        run: npm run test mapArrToString.test.js
+      - name: square test
+        run: npm run test square.test.js
+      - name: validateValue test
+        run: npm run test validateValue.test.js
