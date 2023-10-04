@@ -1,7 +1,5 @@
 name: github-actions
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 jobs:
@@ -11,7 +9,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '18'
       - name: intall modules
         run: npm install 
       - name: intall jest
