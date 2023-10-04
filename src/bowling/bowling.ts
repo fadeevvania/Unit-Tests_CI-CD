@@ -7,7 +7,12 @@ export class Game {
     let score = 0 //сумма очков
     let frameIndex = 0 //индекс текущего броска
     for (let frame = 0; frame < 10; frame++) {
-      if (this.isSpare(frameIndex)) { //spare
+      if (this.rolls[frameIndex]=== 10) { //strike
+        score +=10 +
+        this.rolls[frameIndex +1] + this.rolls[frameIndex +2]
+        frameIndex++
+      }
+      else if (this.isSpare(frameIndex)) { //spare
         score += 10 + this.rolls[frameIndex + 2] //удваивание следующего броска
         frameIndex += 2 //переход к след. фрейму
       } else {

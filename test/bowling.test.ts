@@ -24,6 +24,13 @@ describe('Bowling Score', () => {
     expect(g.score()).toBe(28)
   })
 
+  test('Если страйк, то бонус следующего фрейма', () => {
+    g.roll(10) //strike
+    g.roll(3)
+    g.roll(4)
+    expect(g.score()).toBe(24)
+  })
+
   function rollSpare(): void {
     g.roll(5)
     g.roll(5) //spare
