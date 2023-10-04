@@ -7,9 +7,9 @@ export class Game {
     let score = 0 //сумма очков
     let frameIndex = 0 //индекс текущего броска
     for (let frame = 0; frame < 10; frame++) {
-      if (this.rolls[frameIndex] === 10) { //strike
+      if (this.isStrike(frameIndex)) { //strike
         score += 10 + this.strikeBonus(frameIndex)
-          frameIndex++
+        frameIndex++
       }
       else if (this.isSpare(frameIndex)) { //spare
         score += 10 + this.spareBonus(frameIndex) //удваивание следующего броска
@@ -22,18 +22,22 @@ export class Game {
     return score
   }
 
-  private sumFrameScore (frameIndex:number): number{
-    return this.rolls[frameIndex] + this.rolls[frameIndex+1]
+  private sumFrameScore(frameIndex: number): number {
+    return this.rolls[frameIndex] + this.rolls[frameIndex + 1]
   }
 
-  private strikeBonus (frameIndex:number): number{
-    return this.rolls[frameIndex + 1] + this.rolls [frameIndex + 2]
+  private strikeBonus(frameIndex: number): number {
+    return this.rolls[frameIndex + 1] + this.rolls[frameIndex + 2]
   }
 
-  private spareBonus (frameIndex:number): number{
-    return this.rolls [frameIndex + 2]
+  private spareBonus(frameIndex: number): number {
+    return this.rolls[frameIndex + 2]
   }
 
+  private isStrike(frameIndex: number): boolean {
+    return this.rolls[frameIndex] === 10
+  }
+  
   private isSpare(frameIndex: number): boolean {
     return this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10
   }
