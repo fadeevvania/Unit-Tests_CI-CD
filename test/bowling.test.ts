@@ -1,21 +1,27 @@
 import {Game} from '../src/bowling/bowling';
 
+let g: Game = new Game()
+
+beforeEach(()=>{
+  g = new Game()
+})
+
 describe('Bowling Score', () => {
   test('Все броски мимо', () => {
-    const g: Game = new Game()
-    for (let i = 0; i < 20; i++) {
-      g.roll(0)
-    }
+    rollMany(20,0)
     expect(g.score).toBe(0)
   })
 
   test('Каждый бросок - 1 кегля (счёт 20)', () => {
-    const g: Game = new Game()
-    for (let i = 0; i < 20; i++) {
-      g.roll(1)
-    }
+    rollMany(20,1)
     expect(g.score).toBe(20)
   })
+
+  function rollMany(countRolls: number, pinsScore: number): void{
+    for (let i = 0; i < countRolls; i++) {
+      g.roll(pinsScore)
+    }
+  }
 })
 
 
