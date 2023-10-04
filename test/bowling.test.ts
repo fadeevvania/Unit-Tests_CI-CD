@@ -7,19 +7,20 @@ beforeEach(()=>{
 })
 
 describe('Bowling Score', () => {
+
   test('Все броски мимо', () => {
     rollMany(20,0)
-    expect(g.score).toBe(0)
+    expect(g.score()).toBe(0)
   })
 
   test('Каждый бросок - 1 кегля (счёт 20)', () => {
     rollMany(20,1)
-    expect(g.score).toBe(20)
+    expect(g.score()).toBe(20)
   })
 
-  function rollMany(countRolls: number, pinsScore: number): void{
+  function rollMany(countRolls: number, pins: number): void{
     for (let i = 0; i < countRolls; i++) {
-      g.roll(pinsScore)
+      g.roll(pins)
     }
   }
 })
