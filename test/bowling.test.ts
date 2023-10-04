@@ -23,19 +23,29 @@ describe('Bowling Score', () => {
     g.roll(9)
     expect(g.score()).toBe(28)
   })
-
+  
   test('Если страйк, то бонус следующего фрейма', () => {
-    g.roll(10) //strike
+    rollStrike() //strike
     g.roll(3)
     g.roll(4)
     expect(g.score()).toBe(24)
   })
+  
+  test('Все страйки (300)', () => {
+    rollMany(12,10)
+    expect(g.score()).toBe(300)
+  })
+  
 
-  function rollSpare(): void {
-    g.roll(5)
-    g.roll(5) //spare
+  function rollStrike(): void{
+    g.roll(10)
   }
-
+  
+    function rollSpare(): void {
+      g.roll(5)
+      g.roll(5) //spare
+    }
+  
   function rollMany(countRolls: number, pins: number): void {
     for (let i = 0; i < countRolls; i++) {
       g.roll(pins)
