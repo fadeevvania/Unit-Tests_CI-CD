@@ -5,13 +5,13 @@ export class Game {
 
   score(): number {
     let score = 0 //сумма очков
-    let i = 0 //индекс текущего броска
+    let frameIndex = 0 //индекс текущего броска
     for (let frame = 0; frame < 10; frame++) {
-      if (this.rolls[i] + this.rolls[i + 1] === 10) { //spare
-        score += 10 + this.rolls[i + 2] //удваивание следующего броска
-        i += 2 //переход к след. фрейму
+      if (this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10) { //spare
+        score += 10 + this.rolls[frameIndex + 2] //удваивание следующего броска
+        frameIndex += 2 //переход к след. фрейму
       } else {
-        score += this.rolls[i] + this.rolls [i+1];
+        score += this.rolls[frameIndex] + this.rolls [frameIndex+1];
         i += 2
       }
     }
