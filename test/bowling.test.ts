@@ -1,31 +1,35 @@
-import {Game} from '../src/bowling/bowling';
+import { Game } from '../src/bowling/bowling';
 
 let g: Game = new Game()
 
-beforeEach(()=>{
+beforeEach(() => {
   g = new Game()
 })
 
 describe('Bowling Score', () => {
 
   test('Все броски мимо', () => {
-    rollMany(20,0)
+    rollMany(20, 0)
     expect(g.score()).toBe(0)
   })
 
   test('Каждый бросок - 1 кегля (счёт 20)', () => {
-    rollMany(20,1)
+    rollMany(20, 1)
     expect(g.score()).toBe(20)
   })
-  
+
   test('Если выпадает spare, то бонус к следующему первому броску', () => {
-    g.roll(5)
-    g.roll(5) //spare
+    rollSpare()
     g.roll(9)
     expect(g.score()).toBe(28)
   })
 
-  function rollMany(countRolls: number, pins: number): void{
+  function rollSpare(): void {
+    g.roll(5)
+    g.roll(5) //spare
+  }
+
+  function rollMany(countRolls: number, pins: number): void {
     for (let i = 0; i < countRolls; i++) {
       g.roll(pins)
     }
