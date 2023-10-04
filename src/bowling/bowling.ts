@@ -7,16 +7,21 @@ export class Game {
     let score = 0 //сумма очков
     let frameIndex = 0 //индекс текущего броска
     for (let frame = 0; frame < 10; frame++) {
-      if (this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10) { //spare
+      if (this.isSpare(frameIndex)) { //spare
         score += 10 + this.rolls[frameIndex + 2] //удваивание следующего броска
         frameIndex += 2 //переход к след. фрейму
       } else {
-        score += this.rolls[frameIndex] + this.rolls [frameIndex+1];
-        i += 2
+        score += this.rolls[frameIndex] + this.rolls[frameIndex + 1];
+        frameIndex += 2
       }
     }
     return score
   }
+
+  private isSpare(frameIndex:number): boolean {
+    return this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10
+  }
+
   roll(pins: number): void {
     this.rolls[this.currentRoll++] = pins
   }
