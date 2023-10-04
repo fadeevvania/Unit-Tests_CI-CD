@@ -1,21 +1,27 @@
-export class Game{
+export class Game {
 
   private rolls: number[] = Array(21).fill(0)
   private currentRoll: number = 0
 
-   score (): number{
-    let score = 0
-    for (let i = 0; i < this.rolls.length; i++) {
-      score += this.rolls[i];
+  score(): number {
+    let score = 0 //сумма очков
+    let i = 0 //индекс текущего броска
+    for (let frame = 0; frame < 10; frame++) {
+      if (this.rolls[i] + this.rolls[i + 1] === 10) { //spare
+        score += 10 + this.rolls[i + 2] //удваивание следующего броска
+        i += 2 //переход к след. фрейму
+      } else {
+        score += this.rolls[i] + this.rolls [i+1];
+        i += 2
+      }
     }
     return score
   }
-  roll (pins: number): void{
-    this.rolls[this.currentRoll++]= pins
+  roll(pins: number): void {
+    this.rolls[this.currentRoll++] = pins
   }
-  
+
 }
-  
 
 
 
@@ -24,28 +30,29 @@ export class Game{
 
 
 
-// const calcScore = (rolls: number[]) => { 
+
+// const calcScore = (rolls: number[]) => {
 
 
-//   let score = 0; 
-//   let frameIndex = 0; 
-//   for (let frame = 0; frame < 10; frame++) { 
-//     const firstRoll = rolls[frameIndex]; 
-//     if(firstRoll === 10) { 
-//       // strike 
-//       score += 10 + rolls[frameIndex+1] + rolls[frameIndex+2]; 
-//       frameIndex++; 
-//     } else { 
-//       const secondRoll = rolls[frameIndex + 1]; 
-//       score += firstRoll + secondRoll; 
-//       if(firstRoll + secondRoll === 10) { 
-//         // spare 
-//         score += rolls[frameIndex + 2]; 
-//       } 
-//       frameIndex = frameIndex + 2; 
-//     } 
-//   } 
-//   return score; 
-// } 
+//   let score = 0;
+//   let frameIndex = 0;
+//   for (let frame = 0; frame < 10; frame++) {
+//     const firstRoll = rolls[frameIndex];
+//     if(firstRoll === 10) {
+//       // strike
+//       score += 10 + rolls[frameIndex+1] + rolls[frameIndex+2];
+//       frameIndex++;
+//     } else {
+//       const secondRoll = rolls[frameIndex + 1];
+//       score += firstRoll + secondRoll;
+//       if(firstRoll + secondRoll === 10) {
+//         // spare
+//         score += rolls[frameIndex + 2];
+//       }
+//       frameIndex = frameIndex + 2;
+//     }
+//   }
+//   return score;
+// }
 
 // export default calcScore;

@@ -17,6 +17,13 @@ describe('Bowling Score', () => {
     rollMany(20,1)
     expect(g.score()).toBe(20)
   })
+  
+  test('Если выпадает spare, то бонус к следующему первому броску', () => {
+    g.roll(5)
+    g.roll(5) //spare
+    g.roll(9)
+    expect(g.score()).toBe(28)
+  })
 
   function rollMany(countRolls: number, pins: number): void{
     for (let i = 0; i < countRolls; i++) {
