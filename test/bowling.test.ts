@@ -8,6 +8,13 @@ beforeEach(() => {
 
 describe('Bowling Score', () => {
 
+  test('Получение броска и результата одного фрейма', () => {
+    g.roll(3); // первый бросок первого фрейма
+    g.roll(4); // второй бросок первого фрейма
+    expect(g.score()).toBe(7);
+  });
+  
+
   test('Все броски мимо', () => {
     rollMany(20, 0)
     expect(g.score()).toBe(0)
@@ -18,6 +25,7 @@ describe('Bowling Score', () => {
     expect(g.score()).toBe(20)
   })
 
+  
   test('Если выпадает spare, то бонус к следующему первому броску', () => {
     rollSpare()
     g.roll(9)
@@ -35,7 +43,22 @@ describe('Bowling Score', () => {
     rollMany(12,10)
     expect(g.score()).toBe(300)
   })
+ 
+  test('Если в последнем фрейме страйк, то два бонусных броска', () => {
+    rollMany(18, 0); 
+    rollStrike(); 
+    g.roll(5);
+    g.roll(3); 
+    expect(g.score()).toBe(18);
+  });
   
+  test('Если в последнем фрейме спэр, то один бонусный бросок', () => {
+    rollMany(18, 0); 
+    rollSpare(); 
+    g.roll(5); 
+    expect(g.score()).toBe(15);
+  });
+ 
 
   function rollStrike(): void{
     g.roll(10)
@@ -52,105 +75,3 @@ describe('Bowling Score', () => {
     }
   }
 })
-
-
-
-
-// import calcScore from "../src/bowling/bowling";
-// import assert from 'assert';
-
-// describe ("Bowling Score", function () {
-
-//   it("Все броски мимо", function () {
-//     const rolls = Array(20).fill(0);
-//     const result = calcScore(rolls);
-//     const expected = 0;
-//     assert.equal(result, expected);
-//   });
-
-//   it("Каждый бросок - 1 кегля (счёт 20)", function () {
-//     const rolls = Array(20).fill(1);
-//     const result = calcScore(rolls);
-//     const expected = 20;
-//     assert.equal(result, expected);
-//   });
-
-//   it("Все страйки (300)", function () {
-//     const rolls = Array(12).fill(10);
-//     const result = calcScore(rolls);
-//     const expected = 300;
-//     assert.equal(result, expected);
-//   });
-
-//   it("Если выпадает spare, то бонус к следующему броску", function () {
-//     const rolls = [
-//       5, 5, // spare
-//       5, 3,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//     ];
-//     const result = calcScore(rolls);
-//     const expected = 23;
-//     assert.equal(result, expected);
-//   });
-
-//   it("Spare в финальном фрейме даёт бонусный бросок", function () {
-//     const rolls = [
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       7, 3, 8
-//     ];
-//     const result = calcScore(rolls);
-//     const expected = 18;
-//     assert.equal(result, expected);
-//   });
-
-//   it("Страйк в финальном фрейме даёт два бонусных броска", function () {
-//     const rolls = [
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       10, 10, 1
-//     ];
-//     const result = calcScore(rolls);
-//     const expected = 21;
-//     assert.equal(result, expected);
-//   });
-
-//   it("Если страйк, то бонус на X2 бонус следующего броска", function () {
-//     const rolls = [
-//       10,
-//       2, 3,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//       0, 0,
-//     ];
-//     const result = calcScore(rolls);
-//     const expected = 20;
-//     assert.equal(result, expected);
-//   });
-
-// }); 
