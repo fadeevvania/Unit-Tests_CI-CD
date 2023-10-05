@@ -15,7 +15,7 @@ jobs:
       - name: intall jest
         run: npm i -D jest
       - name: bowling score test
-        run: npm run test bowling.test.js
+        run: npm run test bowling.test.ts
       
 
 
