@@ -86,7 +86,6 @@ describe('Bowling Score', () => {
       g.roll(5) 
       g.roll(5) //spare 
     } 
-   
   function rollMany(countRolls: number, pins: number): void { 
     for (let i = 0; i < countRolls; i++) { 
       g.roll(pins) 
