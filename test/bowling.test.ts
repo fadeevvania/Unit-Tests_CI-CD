@@ -25,7 +25,14 @@ describe('Bowling Score', () => {
     rollMany(20, 1) 
     expect(g.score()).toBe(20) 
   }) 
- 
+  test('Слишком много бросков', () => { 
+    rollMany(21, 1) 
+    expect(g.score()).not.toBeGreaterThan(20) 
+  })
+  test('Каждый бросок - 1 кегля (счёт 20)', () => { 
+    rollMany(20, 1) 
+    expect(g.score()).toBe(20) 
+  })  
    
   test('Если выпадает spare, то бонус к следующему первому броску', () => { 
     rollSpare() 
@@ -59,12 +66,7 @@ describe('Bowling Score', () => {
     g.roll(5);  
     expect(g.score()).toBe(15); 
   }); 
-  
-     
-  test('слишком много бросков', () => { 
-    rollMany(30, 30);   
-    expect(g.score()).toBeLessThan(15); 
-  }); 
+
   
  
  
