@@ -54,7 +54,7 @@ export class Game {
 
 
   roll(pins: number): void {
-    if (this.currentRoll < this.maxRolls) {
+    if (pins >= 0 && this.currentRoll < this.maxRolls) {
       this.rolls[this.currentRoll++] = pins;
     }
   }
