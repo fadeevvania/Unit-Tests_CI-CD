@@ -7,11 +7,16 @@ export class Game {
     this.maxRolls = maxRolls;
     this.rolls = Array(maxRolls).fill(0);
   }
+
   public score(): number {
+
     let score = 0;
     let frameIndex = 0;
 
     for (let frame = 0; frame < 10; frame++) {
+      if (frame === 9 && (this.isStrike(frameIndex - 1) || this.isSpare(frameIndex - 2))) {
+        score += this.lastFrameBonus();
+      }
       if (this.isStrike(frameIndex)) {
         score += 10 + this.strikeBonus(frameIndex);
         frameIndex++;
@@ -23,41 +28,40 @@ export class Game {
         frameIndex += 2;
       }
     }
-
     return score;
   }
+  private lastFrameBonus(): number {
+    let bonus = 0;
+    if (this.isStrike(this.maxRolls - 3)) {
+      bonus += this.rolls[this.maxRolls - 3] + this.rolls[this.maxRolls - 2];
+    } else if (this.isSpare(this.maxRolls - 3)) {
+      bonus += this.rolls[this.maxRolls - 3];
+    }
+    return bonus;
+  }
+ 
 
   private sumFrameScore(frameIndex: number): number {
-    return this.rolls[frameIndex] + this.rolls[frameIndex + 1]
+    return this.rolls[frameIndex] + this.rolls[frameIndex + 1];
   }
-
   private strikeBonus(frameIndex: number): number {
-    if (this.isStrike(frameIndex + 2)) {
-      return 20; // если следующий фрейм тоже страйк, возвращаем 20 очков
-    }
     return this.rolls[frameIndex + 1] + this.rolls[frameIndex + 2];
   }
-
   private spareBonus(frameIndex: number): number {
-    if (this.isStrike(frameIndex + 2)) {
-      return 10; // если следующий бросок страйк, возвращаем 10 очков 
-    }
     return this.rolls[frameIndex + 2];
   }
 
   private isStrike(frameIndex: number): boolean {
-    return this.rolls[frameIndex] === 10
+    return this.rolls[frameIndex] === 10;
   }
   private isSpare(frameIndex: number): boolean {
-    return this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10
+    return this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10;
   }
 
-
   roll(pins: number): void {
-    if (pins >= 0 && this.currentRoll < this.maxRolls) {
+    if (pins >= 0 && pins <= 10 && this.currentRoll < this.maxRolls) { // Ограничиваем значения pins от 0 до 10
       this.rolls[this.currentRoll++] = pins;
     }
   }
-
+  
 }
-

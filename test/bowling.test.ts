@@ -14,7 +14,6 @@ describe('Bowling Score', () => {
     g.roll(4); // второй бросок первого фрейма 
     expect(g.score()).toBe(7); 
   }); 
-   
  
   test('Все броски мимо', () => { 
     rollMany(20, 0) 
@@ -25,22 +24,29 @@ describe('Bowling Score', () => {
     rollMany(20, 1) 
     expect(g.score()).toBe(20) 
   }) 
+
   test('Слишком много бросков', () => { 
     rollMany(21, 1) 
     expect(g.score()).not.toBeGreaterThan(20) 
   })
+  test('Слишком много Кегель', () => { 
+    rollMany(5, 40) 
+    expect(g.score()).not.toBeGreaterThan(0) 
+  })
+
+
   test('Отрицательные броски', () => { 
     g.roll(-3)
     g.roll(-10)
     expect(g.score()).not.toBeLessThan(0) 
   })  
-   
+ 
   test('Если выпадает spare, то бонус к следующему первому броску', () => { 
     rollSpare() 
     g.roll(9) 
     expect(g.score()).toBe(28) 
   }) 
-   
+
   test('Если страйк, то бонус следующего фрейма', () => { 
     rollStrike() //strike 
     g.roll(3) 
@@ -67,10 +73,11 @@ describe('Bowling Score', () => {
     g.roll(5);  
     expect(g.score()).toBe(15); 
   }); 
+  
+  
 
   
- 
- 
+
   function rollStrike(): void{ 
     g.roll(10) 
   } 
