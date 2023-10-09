@@ -1,7 +1,12 @@
 export class Game {
-  private rolls: number[] = Array(21).fill(0);
+  private rolls: number[];
   private currentRoll: number = 0;
+  private maxRolls: number;
 
+  constructor(maxRolls: number) {
+    this.maxRolls = maxRolls;
+    this.rolls = Array(maxRolls).fill(0);
+  }
   public score(): number {
     let score = 0;
     let frameIndex = 0;
@@ -34,11 +39,11 @@ export class Game {
   }
 
   private spareBonus(frameIndex: number): number {
-  if (this.isStrike(frameIndex + 2)) {
-    return 10; // если следующий бросок страйк, возвращаем 10 очков
+    if (this.isStrike(frameIndex + 2)) {
+      return 10; // если следующий бросок страйк, возвращаем 10 очков 
+    }
+    return this.rolls[frameIndex + 2];
   }
-  return this.rolls[frameIndex + 2];
-}
 
   private isStrike(frameIndex: number): boolean {
     return this.rolls[frameIndex] === 10
@@ -47,8 +52,11 @@ export class Game {
     return this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10
   }
 
+
   roll(pins: number): void {
-    this.rolls[this.currentRoll++] = pins
+    if (this.currentRoll < this.maxRolls) {
+      this.rolls[this.currentRoll++] = pins;
+    }
   }
 
 }
