@@ -57,9 +57,8 @@ export class Game {
   private isSpare(frameIndex: number): boolean {
     return this.rolls[frameIndex] + this.rolls[frameIndex + 1] === 10;
   }
-
   roll(pins: number): void {
-    if (pins >= 0 && pins <= 10 && this.currentRoll < this.maxRolls) {
+    if (pins >= 0 && pins <= 10 && this.currentRoll < this.maxRolls) { 
       this.rolls[this.currentRoll++] = pins;
     }
   }
