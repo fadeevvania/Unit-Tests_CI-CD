@@ -1,10 +1,10 @@
 
 import { Game } from '../src/bowling/bowling'; 
  
-let g: Game = new Game(20) ;
+let g: Game = new Game() ;
  
 beforeEach(() => { 
-  g = new Game(20) ;
+  g = new Game() ;
 }) 
  
 describe('Bowling Score', () => { 
@@ -59,29 +59,27 @@ describe('Bowling Score', () => {
     expect(g.score()).toBe(300) 
   }) 
   
-  test('Если в последнем фрейме страйк, то два бонусных броска', () => { 
-    rollMany(18, 0);  
-    rollStrike();  
-    g.roll(5); 
-    g.roll(3);  
-    expect(g.score()).toBe(18); / Ошибка /
-  }); 
-   
-  test('Если в последнем фрейме спэр, то один бонусный бросок', () => { 
-    rollMany(18, 0);  
-    rollSpare();  
-    g.roll(5);  
-    expect(g.score()).toBe(15); / Ошибка /
-  }); 
-  
-  
+  test('Если в последнем фрейме страйк, то два бонусных броска', () => {
+    rollMany(18, 0);
+    rollStrike();
+    g.roll(5);
+    g.roll(2);
+    g.roll(19)
+    expect(g.score()).toBe(17);
+  });
 
+  test('Если в последнем фрейме спэр, то один бонусный бросок', () => {
+    rollMany(18, 0);
+    rollSpare();
+    g.roll(3);
+    g.roll(4);
+    g.roll(19)
+    expect(g.score()).toBe(13);
+  });
   
-
   function rollStrike(): void{ 
     g.roll(10) 
   } 
-   
     function rollSpare(): void { 
       g.roll(5) 
       g.roll(5) //spare 
