@@ -29,17 +29,19 @@ describe('Bowling Score', () => {
     rollMany(21, 1) 
     expect(g.score()).not.toBeGreaterThan(20) 
   })
+  
   test('Слишком много Кегель', () => { 
-    rollMany(5, 40) 
-    expect(g.score()).not.toBeGreaterThan(0) 
+  expect(()=>{
+    rollMany(10,40);
+  }).toThrowError("Значение pins не может быть больше 10")
   })
 
-
-  test('Отрицательные броски', () => { 
-    g.roll(-3)
-    g.roll(-10)
-    expect(g.score()).not.toBeLessThan(0) 
-  })  
+  test('Отрицательные броски', () => {  
+    expect(() => {
+      g.roll(-3);
+    }).toThrowError("Значение pins должно быть больше или равно 0"); 
+  })   
+  
  
   test('Если выпадает spare, то бонус к следующему первому броску', () => { 
     rollSpare() 
@@ -64,7 +66,6 @@ describe('Bowling Score', () => {
     rollStrike();
     g.roll(5);
     g.roll(2);
-    g.roll(19)
     expect(g.score()).toBe(17);
   });
 
@@ -72,8 +73,6 @@ describe('Bowling Score', () => {
     rollMany(18, 0);
     rollSpare();
     g.roll(3);
-    g.roll(4);
-    g.roll(19)
     expect(g.score()).toBe(13);
   });
   
