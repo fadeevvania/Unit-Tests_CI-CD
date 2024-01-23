@@ -1,0 +1,22 @@
+name: github-actions
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: intall modules
+        run: npm install 
+      - name: intall jest
+        run: npm i -D jest
+      - name: bowling score test
+        run: npm run test bowling.test.ts
+      
+
+
+
